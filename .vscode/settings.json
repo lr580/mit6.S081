@@ -4,6 +4,7 @@
         "stat.h": "c",
         "types.h": "c",
         "user.h": "c",
-        "fcntl.h": "c"
+        "fcntl.h": "c",
+        "proc.h": "c"
     }
 }
