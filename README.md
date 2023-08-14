@@ -8,7 +8,8 @@
 
 ## 更新日志
 
-- `2023/08/13` 1-2h 阅读 optional 任务，完成 lab1 util
+- `2023/08/13` 1h 部署 lab2 system calls 环境
+- `2023/08/13` 1-2h 阅读 optional 任务，完成 lab1 `util`
 - `2023/08/13` 1h 完成 `xargs` 功能
 - `2023/08/12` 1-2h 完成 `find` 功能
 - `2023/08/12` 2-4h 完成 `pingpong`, `primes` 功能
