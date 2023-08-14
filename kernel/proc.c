@@ -657,3 +657,16 @@ procdump(void)
     printf("\n");
   }
 }
+
+uint64
+count_process(void)
+{
+  uint64 cnt = 0;
+  for(int i=0;i<NPROC;++i) {
+    struct proc *p = &proc[i]; //pointer avoid copy
+    if(p->state != UNUSED) {
+      ++cnt;
+    }
+  }
+  return cnt;
+}
