@@ -104,8 +104,17 @@ extern uint64 sys_unlink(void);
 extern uint64 sys_wait(void);
 extern uint64 sys_write(void);
 extern uint64 sys_uptime(void);
+<<<<<<< HEAD
 extern uint64 sys_trace(void);
 extern uint64 sys_sysinfo(void);
+=======
+#ifdef LAB_NET
+extern uint64 sys_connect(void);
+#endif
+#ifdef LAB_PGTBL
+extern uint64 sys_pgaccess(void);
+#endif
+>>>>>>> origin2/pgtbl
 
 static uint64 (*syscalls[])(void) = {
 [SYS_fork]    sys_fork,
@@ -157,7 +166,15 @@ const char *syscall_names[] = {
     [SYS_close]   "close",
     [SYS_trace]   "trace",
     [SYS_sysinfo] "sysinfo",
+#ifdef LAB_NET
+[SYS_connect] sys_connect,
+#endif
+#ifdef LAB_PGTBL
+[SYS_pgaccess] sys_pgaccess,
+#endif
 };
+
+
 
 void
 syscall(void)
