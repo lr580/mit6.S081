@@ -4,11 +4,18 @@
 
 具体开发过程和部署参考过程见 `学习笔记.md`
 
+> 各分支介绍：
+>
+> - `master` lab1+lab2
+> - `pgtbl` lab3
+
 
 
 ## 更新日志
 
-- `2023/08/14` 1-1.5h 完成 `sysinfo` 功能
+- `2023/08/20` 30min-1h 完成 `Print a page table` 功能
+- `2023/08/18` 2-3h 完成 lab3 环境部署，完成 `speed up system calls` 功能
+- `2023/08/14` 1-1.5h 完成 `sysinfo` 功能，完成 lab2 `system calls`
 - `2023/08/14` 1-2h 完成 `trace` 功能
 - `2023/08/13` 1h 部署 lab2 system calls 环境
 - `2023/08/13` 1-2h 阅读 optional 任务，完成 lab1 `util`
