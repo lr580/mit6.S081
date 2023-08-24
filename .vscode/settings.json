@@ -1,0 +1,11 @@
+{
+    "files.associations": {
+        "*.py": "python",
+        "proc.h": "c",
+        "spinlock.h": "c",
+        "memlayout.h": "c",
+        "date.h": "c",
+        "defs.h": "c",
+        "param.h": "c"
+    }
+}
