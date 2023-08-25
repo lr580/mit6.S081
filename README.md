@@ -13,6 +13,9 @@
 
 ## 更新日志
 
+- `2023/08/25` 1-2h 完成 `backtrace` 功能
+- `2023/08/25` 1-2h 完成 lab4 的 RISC-V assembly 问答题
+- `2023/08/24` 1-3h 完成检测访问页功能，完成 lab3
 - `2023/08/20` 30min-1h 完成 `Print a page table` 功能
 - `2023/08/18` 2-3h 完成 lab3 环境部署，完成 `speed up system calls` 功能
 - `2023/08/14` 1-1.5h 完成 `sysinfo` 功能，完成 lab2 `system calls`
