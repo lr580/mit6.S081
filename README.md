@@ -13,6 +13,7 @@
 
 ## 更新日志
 
+- `2023/08/28` 2-4h 完成 lab5 copy-on-write fork 功能
 - `2023/08/27` 2-3h 完成 `alarm` 功能
 - `2023/08/25` 1-2h 完成 `backtrace` 功能
 - `2023/08/25` 1-2h 完成 lab4 的 RISC-V assembly 问答题
