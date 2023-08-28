@@ -303,22 +303,33 @@ uvmcopy(pagetable_t old, pagetable_t new, uint64 sz)
   pte_t *pte;
   uint64 pa, i;
   uint flags;
-  char *mem;
+  // char *mem;
 
   for(i = 0; i < sz; i += PGSIZE){
     if((pte = walk(old, i, 0)) == 0)
       panic("uvmcopy: pte should exist");
     if((*pte & PTE_V) == 0)
       panic("uvmcopy: page not present");
+
     pa = PTE2PA(*pte);
+    *pte &= ~PTE_W; // ban write bit
+    *pte |= PTE_C; // get cow bit
     flags = PTE_FLAGS(*pte);
-    if((mem = kalloc()) == 0)
-      goto err;
-    memmove(mem, (char*)pa, PGSIZE);
-    if(mappages(new, i, PGSIZE, (uint64)mem, flags) != 0){
-      kfree(mem);
+    incref(pa); // add visit count
+    //let va i = father pa rather than memmove copy
+    if(mappages(new, i, PGSIZE, pa, flags) != 0){
       goto err;
     }
+
+    // pa = PTE2PA(*pte);
+    // flags = PTE_FLAGS(*pte);
+    // if((mem = kalloc()) == 0)
+    //   goto err;
+    // memmove(mem, (char*)pa, PGSIZE);
+    // if(mappages(new, i, PGSIZE, (uint64)mem, flags) != 0){
+    //   kfree(mem);
+    //   goto err;
+    // }
   }
   return 0;
 
@@ -353,6 +364,19 @@ copyout(pagetable_t pagetable, uint64 dstva, char *src, uint64 len)
     pa0 = walkaddr(pagetable, va0);
     if(pa0 == 0)
       return -1;
+
+    pte_t *pte = walk(pagetable,va0,0);
+    if(pte == 0 || (*pte & PTE_V )==0 || (*pte & PTE_U) ==0){
+      return -1;
+    }
+    // write protect caused by COW
+    if((*pte & PTE_W) == 0 && (*pte && PTE_C) == 1){
+      if(cowfault(pagetable,va0)<0){
+        return -1;
+      }
+    }
+    pa0 = PTE2PA(*pte); //update pa
+
     n = PGSIZE - (dstva - va0);
     if(n > len)
       n = len;

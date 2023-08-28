@@ -23,10 +23,46 @@ struct {
   struct run *freelist;
 } kmem;
 
+int refcount[PHYSTOP/PGSIZE];
+struct spinlock reflock;
+
+// typedef void (*ref_f)(int);
+// void ref_inc(int pn) {refcount[pn] += 1;}
+// void ref_cls(int pn) {refcount[pn] = 0;}
+// void ref_dec(int pn) {refcount[pn] -= 1;}
+
+// void 
+// ref_modify(uint64 pa, ref_f f)
+// {//pa physical address
+//   int pn = pa/PGSIZE;//phyisical number
+//   acquire(&kmem.lock);
+//   if(pa>=PHYSTOP || refcount[pn]<1){//conditions waits changes
+//       panic("ref_modify");
+//   }
+//   f(pn);
+//   release(&kmem.lock);
+// }
+
+void 
+incref(uint64 pa) { //physical address
+    int pn = pa/PGSIZE; //phyisical number
+    acquire(&kmem.lock);
+    if(pa>=PHYSTOP || refcount[pn]<1){
+        panic("incref");
+    }
+    refcount[pn] += 1;
+    release(&kmem.lock);
+}
+
 void
 kinit()
 {
   initlock(&kmem.lock, "kmem");
+  char *p;
+  p = (char*)PGROUNDUP((uint64)end);
+  for(; p + PGSIZE <= (char*)PHYSTOP; p += PGSIZE){
+     refcount[(uint64)p/ PGSIZE] = 1;
+  }
   freerange(end, (void*)PHYSTOP);
 }
 
@@ -51,6 +87,18 @@ kfree(void *pa)
   if(((uint64)pa % PGSIZE) != 0 || (char*)pa < end || (uint64)pa >= PHYSTOP)
     panic("kfree");
 
+  acquire(&kmem.lock);
+  int pn = (uint64) pa / PGSIZE;
+  if(refcount[pn]<1){
+    panic("kfree ref");
+  }
+  refcount[pn]-=1;
+  int tmp = refcount[pn];
+  release(&kmem.lock);
+  if(tmp>0){//other proc using, cannot release
+    return;
+  }
+
   // Fill with junk to catch dangling refs.
   memset(pa, 1, PGSIZE);
 
@@ -72,8 +120,16 @@ kalloc(void)
 
   acquire(&kmem.lock);
   r = kmem.freelist;
-  if(r)
+  if(r){
     kmem.freelist = r->next;
+    int pn = (uint64)r / PGSIZE;
+    acquire(&reflock);
+    if(refcount[pn]!=0){
+      panic("kalloc ref");
+    }
+    refcount[pn] = 1;
+    release(&reflock);
+  }
   release(&kmem.lock);
 
   if(r)
