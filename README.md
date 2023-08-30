@@ -13,6 +13,8 @@
 
 ## 更新日志
 
+- `2023/08/28` 1-2h 完成 `using threads` 功能
+- `2023/08/28` 1-3h 完成 lab6 `uthread` 功能
 - `2023/08/28` 2-4h 完成 lab5 copy-on-write fork 功能
 - `2023/08/27` 2-3h 完成 `alarm` 功能
 - `2023/08/25` 1-2h 完成 `backtrace` 功能
