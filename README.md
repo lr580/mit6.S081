@@ -13,6 +13,7 @@
 
 ## 更新日志
 
+- `2023/09/01` 2-3h 完成 lab7 networking
 - `2023/08/31` 1-2h 完成 `barrier` 功能，完成 lab6
 - `2023/08/28` 1-2h 完成 `using threads` 功能
 - `2023/08/28` 1-3h 完成 lab6 `uthread` 功能
