@@ -13,6 +13,7 @@
 
 ## 更新日志
 
+- `2023/09/04` 1-3h 完成 lab9 `symbolic links` 功能
 - `2023/09/03` 1-3h 完成 lab9 `large files` 功能
 - `2023/09/02` 3-6h 完成 lab8 `buffer cache` 功能
 - `2023/09/01` 2-4h 完成 lab8 `memory allocator` 功能
