@@ -1,6 +1,8 @@
-[项目介绍](https://csdiy.wiki/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/MIT6.S081/) [项目官网](https://pdos.csail.mit.edu/6.828/2021/index.html)
+[项目介绍](https://csdiy.wiki/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/MIT6.S081/) [项目官网](https://pdos.csail.mit.edu/6.828/2021/index.html) mit6.S081
 
-麻省理工大学的手写给予 RISC-V 的 C 语言操作系统核心代码的项目。
+麻省理工大学的手写基于 RISC-V 的 C 语言操作系统核心代码的项目。
+
+UTF8 编码。
 
 具体开发过程和部署参考过程见 `学习笔记.md`
 
@@ -8,8 +10,15 @@
 >
 > - `master` lab1+lab2
 > - `pgtbl` lab3
+> - `traps` lab4
+> - `cow` lab5
+> - `thread` lab6
+> - `net` lab7
+> - `lock` lab8
+> - `fs` lab9
+> - `mmap` lab10
 
-
+花费在项目的总有效用时约为 51.5h。
 
 ## 更新日志
 
